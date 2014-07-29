@@ -31,13 +31,30 @@ class Home: UIViewController {
     @IBAction func shareButtonDidPress(sender: AnyObject) {
         shareView.hidden = false
         shareView.alpha = 0
+        shareView.transform = CGAffineTransformMakeTranslation(0, 200)
         
         UIView.animateWithDuration(0.5, animations: {
                 self.shareView.alpha = 1
+                self.shareView.transform = CGAffineTransformMakeTranslation(0, 0)
             })
     }
     @IBAction func userButtonDidPress(sender: AnyObject) {
         popoverView.hidden = false
+        
+        let scale = CGAffineTransformMakeScale(0.3, 0.3)
+        let translate = CGAffineTransformMakeTranslation(50, -50)
+        popoverView.transform = CGAffineTransformConcat(scale, translate)
+        popoverView.alpha = 0
+        
+        UIView.animateWithDuration(0.3, animations: {
+            
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
+            self.popoverView.transform = CGAffineTransformConcat(scale, translate)
+            self.popoverView.alpha = 1
+            
+            })
+        
     }
     @IBAction func imageButtonDidPress(sender: AnyObject) {
         
@@ -66,7 +83,17 @@ class Home: UIViewController {
         insertBlurView(backgroundMaskView, UIBlurEffectStyle.Dark)
         insertBlurView(headerView, UIBlurEffectStyle.Dark)
 
-        // Do any additional setup after loading the view.
+        let scale = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate = CGAffineTransformMakeTranslation(0, -200)
+        dialogView.transform = CGAffineTransformConcat(scale, translate)
+        
+        UIView.animateWithDuration(0.5, animations: {
+            
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
+            self.dialogView.transform = CGAffineTransformConcat(scale, translate)
+            
+            })
     }
 
 }
