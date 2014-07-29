@@ -30,12 +30,30 @@ class Home: UIViewController {
     }
     @IBAction func shareButtonDidPress(sender: AnyObject) {
         shareView.hidden = false
+        shareView.alpha = 0
+        
+        UIView.animateWithDuration(0.5, animations: {
+                self.shareView.alpha = 1
+            })
     }
     @IBAction func userButtonDidPress(sender: AnyObject) {
         popoverView.hidden = false
     }
     @IBAction func imageButtonDidPress(sender: AnyObject) {
         
+        UIView.animateWithDuration(0.7, animations: {
+            
+            self.dialogView.frame = CGRectMake(0, 0, 320, 568)
+            self.dialogView.layer.cornerRadius = 0
+            self.imageButton.frame = CGRectMake(0, 0, 320, 240)
+            self.likeButton.alpha = 0
+            self.shareButton.alpha = 0
+            self.userButton.alpha = 0
+            self.headerView.alpha = 0
+            
+            }, completion: { finished in
+                self.performSegueWithIdentifier("homeToDetail", sender: self)
+            })
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

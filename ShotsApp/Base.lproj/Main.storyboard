@@ -50,7 +50,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="imageButtonDidPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WbA-9b-gfT"/>
-                                                    <segue destination="6nb-ye-CDC" kind="modal" animates="NO" id="9FY-dk-m5W"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" id="C2q-ut-5bo">
@@ -264,22 +263,23 @@
                         <outlet property="shareView" destination="1aY-4L-AfP" id="srR-tU-VmJ"/>
                         <outlet property="titleLabel" destination="sfn-AN-PFa" id="th4-wk-045"/>
                         <outlet property="userButton" destination="8nS-Qg-dEd" id="15l-jf-xb7"/>
+                        <segue destination="6nb-ye-CDC" kind="modal" identifier="homeToDetail" animates="NO" id="Nna-My-0nK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="168" y="366.36000000000001"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail-->
         <scene sceneID="5Iv-b2-ieD">
             <objects>
-                <viewController id="6nb-ye-CDC" sceneMemberID="viewController">
+                <viewController id="6nb-ye-CDC" customClass="Detail" customModule="ShotsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CiI-4w-WzF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" id="M17-vE-6VJ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nuu-ac-IfC">
@@ -288,9 +288,12 @@
                                 <state key="normal" backgroundImage="backbutton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" animates="NO" id="gbG-ON-uuM"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" id="dog-x8-5rG">
-                                <rect key="frame" x="20" y="269" width="30" height="30"/>
+                                <rect key="frame" x="20" y="260" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -299,14 +302,14 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mike | Creative Mints" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e4F-eh-bRm">
-                                <rect key="frame" x="65" y="277" width="178" height="19"/>
+                                <rect key="frame" x="65" y="268" width="178" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Libertad" family="Libertad" pointSize="20"/>
                                 <color key="textColor" red="0.20392156859999999" green="0.63921568630000003" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="GMF-Oz-YwN">
-                                <rect key="frame" x="20" y="314" width="280" height="234"/>
+                                <rect key="frame" x="20" y="305" width="280" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">You guys, the new "How To Draw: drawing and sketching objects and environments from your imagination" book by S. Robertson is just amazing! I spent the whole weekend gobbling it up and of course I couldn't help but take the watercolors myself! :)
@@ -351,4 +354,7 @@ Behance</string>
             <size key="landscapeSize" width="568" height="320"/>
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="gbG-ON-uuM"/>
+    </inferredMetricsTieBreakers>
 </document>
