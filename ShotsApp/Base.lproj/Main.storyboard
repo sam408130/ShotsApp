@@ -22,10 +22,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Home-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="ShotsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="Home" customModule="ShotsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7fy-Ll-yZ3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -49,6 +49,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="imageButtonDidPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WbA-9b-gfT"/>
                                                     <segue destination="6nb-ye-CDC" kind="modal" animates="NO" id="9FY-dk-m5W"/>
                                                 </connections>
                                             </button>
@@ -102,6 +103,9 @@
                                                     <color key="titleColor" red="0.23921568630000001" green="0.25882352939999997" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="likeButtonDidPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aiu-ba-1rE"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TUh-my-BR5">
                                                 <rect key="frame" x="140" y="209" width="140" height="61"/>
@@ -112,6 +116,9 @@
                                                     <color key="titleColor" red="0.23921568630000001" green="0.25882352939999997" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="shareButtonDidPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="vJ8-Wy-aKY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.94901960780000005" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -127,6 +134,9 @@
                                         <state key="normal" backgroundImage="button-user">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="userButtonDidPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EH9-6F-UJD"/>
+                                        </connections>
                                     </button>
                                     <view hidden="YES" contentMode="scaleToFill" id="8Mq-Cm-UAp">
                                         <rect key="frame" x="135" y="73" width="170" height="141"/>
@@ -165,6 +175,9 @@
                                                 <state key="normal" title="Share" image="popover-shares">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="vXZ-lx-hvc" kind="push" id="ZNg-aW-BO4"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -235,6 +248,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cFZ-Am-rfD"/>
+                    <connections>
+                        <outlet property="authorLabel" destination="Q1b-ZB-Fz1" id="BbI-JZ-QdF"/>
+                        <outlet property="avatarImageView" destination="nG4-lx-UVo" id="hQZ-4V-0Hu"/>
+                        <outlet property="backgroundImageView" destination="eiY-ku-HNr" id="4af-vM-J3y"/>
+                        <outlet property="backgroundMaskView" destination="06s-jL-6FA" id="feo-UI-eJh"/>
+                        <outlet property="dialogView" destination="gXj-sg-khc" id="VCH-AB-rG6"/>
+                        <outlet property="favoritesLabel" destination="pnz-RQ-jfU" id="OgM-9F-h4h"/>
+                        <outlet property="headerView" destination="C2q-ut-5bo" id="1wH-ql-cHb"/>
+                        <outlet property="imageButton" destination="g6t-KI-W43" id="R7b-Zl-4nO"/>
+                        <outlet property="likeButton" destination="SQh-Tc-ElI" id="a5e-EA-Y3U"/>
+                        <outlet property="popoverView" destination="8Mq-Cm-UAp" id="4wm-Z6-eGz"/>
+                        <outlet property="shareButton" destination="TUh-my-BR5" id="5mV-l5-tgI"/>
+                        <outlet property="shareView" destination="1aY-4L-AfP" id="srR-tU-VmJ"/>
+                        <outlet property="titleLabel" destination="sfn-AN-PFa" id="th4-wk-045"/>
+                        <outlet property="userButton" destination="8nS-Qg-dEd" id="15l-jf-xb7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
