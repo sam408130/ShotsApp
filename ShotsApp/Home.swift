@@ -24,19 +24,61 @@ class Home: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var favoritesLabel: UILabel!
+    @IBOutlet weak var maskButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var twitterButton: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var shareLabelsView: UIView!
     
+    @IBAction func maskButtonDidPress(sender: AnyObject) {
+        spring(0.5) {
+            self.maskButton.alpha = 0
+        }
+        hideShareView()
+        hidePopover()
+    }
+    func showMask() {
+        self.maskButton.hidden = false
+        self.maskButton.alpha = 0
+        spring(0.5) {
+            self.maskButton.alpha = 1
+        }
+    }
     @IBAction func likeButtonDidPress(sender: AnyObject) {
         
     }
     @IBAction func shareButtonDidPress(sender: AnyObject) {
         shareView.hidden = false
-        shareView.alpha = 0
+        showMask()
         shareView.transform = CGAffineTransformMakeTranslation(0, 200)
+        emailButton.transform = CGAffineTransformMakeTranslation(0, 200)
+        twitterButton.transform = CGAffineTransformMakeTranslation(0, 200)
+        facebookButton.transform = CGAffineTransformMakeTranslation(0, 200)
+        shareLabelsView.alpha = 0
         
-        UIView.animateWithDuration(0.5, animations: {
-                self.shareView.alpha = 1
-                self.shareView.transform = CGAffineTransformMakeTranslation(0, 0)
+        spring(0.5) {
+            self.shareView.transform = CGAffineTransformMakeTranslation(0, 0)
+            self.dialogView.transform = CGAffineTransformMakeScale(0.8, 0.8)
+        }
+        springWithDelay(0.5, 0.05, {
+            self.emailButton.transform = CGAffineTransformMakeTranslation(0, 0)
             })
+        springWithDelay(0.5, 0.10, {
+            self.twitterButton.transform = CGAffineTransformMakeTranslation(0, 0)
+            })
+        springWithDelay(0.5, 0.15, {
+            self.facebookButton.transform = CGAffineTransformMakeTranslation(0, 0)
+            })
+        springWithDelay(0.5, 0.2, {
+            self.shareLabelsView.alpha = 1
+            })
+    }
+    func hideShareView() {
+        spring(0.5) {
+            self.shareView.transform = CGAffineTransformMakeTranslation(0, 0)
+            self.dialogView.transform = CGAffineTransformMakeScale(1, 1)
+            self.shareView.hidden = true
+        }
     }
     @IBAction func userButtonDidPress(sender: AnyObject) {
         popoverView.hidden = false
@@ -46,19 +88,24 @@ class Home: UIViewController {
         popoverView.transform = CGAffineTransformConcat(scale, translate)
         popoverView.alpha = 0
         
-        UIView.animateWithDuration(0.3, animations: {
-            
+        showMask()
+        
+        spring(0.5) {
             let scale = CGAffineTransformMakeScale(1, 1)
             let translate = CGAffineTransformMakeTranslation(0, 0)
             self.popoverView.transform = CGAffineTransformConcat(scale, translate)
             self.popoverView.alpha = 1
-            
-            })
-        
+        }
+
+    }
+    func hidePopover() {
+        spring(0.5) {
+            self.popoverView.hidden = true
+        }
     }
     @IBAction func imageButtonDidPress(sender: AnyObject) {
         
-        UIView.animateWithDuration(0.7, animations: {
+        springWithCompletion(0.5, {
             
             self.dialogView.frame = CGRectMake(0, 0, 320, 568)
             self.dialogView.layer.cornerRadius = 0
@@ -68,7 +115,7 @@ class Home: UIViewController {
             self.userButton.alpha = 0
             self.headerView.alpha = 0
             
-            }, completion: { finished in
+            }, { finished in
                 self.performSegueWithIdentifier("homeToDetail", sender: self)
             })
     }
@@ -87,13 +134,11 @@ class Home: UIViewController {
         let translate = CGAffineTransformMakeTranslation(0, -200)
         dialogView.transform = CGAffineTransformConcat(scale, translate)
         
-        UIView.animateWithDuration(0.5, animations: {
-            
+        spring(0.5) {
             let scale = CGAffineTransformMakeScale(1, 1)
             let translate = CGAffineTransformMakeTranslation(0, 0)
             self.dialogView.transform = CGAffineTransformConcat(scale, translate)
-            
-            })
+        }
     }
 
 }
