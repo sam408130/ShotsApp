@@ -105,7 +105,7 @@ class Home: UIViewController {
     }
     @IBAction func imageButtonDidPress(sender: AnyObject) {
         
-        springWithCompletion(0.5, {
+        springWithCompletion(0.7, {
             
             self.dialogView.frame = CGRectMake(0, 0, 320, 568)
             self.dialogView.layer.cornerRadius = 0
@@ -120,16 +120,34 @@ class Home: UIViewController {
             })
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if segue.identifier == "homeToDetail" {
+            let controller = segue.destinationViewController as Detail
+            controller.data = data
+            controller.number = number
+        }
+    }
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
     
+    var data = getData()
+    var number = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
         insertBlurView(backgroundMaskView, UIBlurEffectStyle.Dark)
         insertBlurView(headerView, UIBlurEffectStyle.Dark)
-
+        
+        animator = UIDynamicAnimator(referenceView: view)
+        
+        dialogView.alpha = 0
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(Bool())
+        
         let scale = CGAffineTransformMakeScale(0.5, 0.5)
         let translate = CGAffineTransformMakeTranslation(0, -200)
         dialogView.transform = CGAffineTransformConcat(scale, translate)
@@ -140,7 +158,13 @@ class Home: UIViewController {
             self.dialogView.transform = CGAffineTransformConcat(scale, translate)
         }
         
-        animator = UIDynamicAnimator(referenceView: view)
+        avatarImageView.image = UIImage(named: data[number]["avatar"])
+        imageButton.setImage(UIImage(named: data[number]["image"]), forState: UIControlState.Normal)
+        backgroundImageView.image = UIImage(named: data[number]["image"])
+        authorLabel.text = data[number]["author"]
+        titleLabel.text = data[number]["title"]
+        
+        dialogView.alpha = 1
     }
     
     var animator : UIDynamicAnimator!
@@ -179,8 +203,27 @@ class Home: UIViewController {
                 var gravity = UIGravityBehavior(items: [dialogView])
                 gravity.gravityDirection = CGVectorMake(0, 10)
                 animator.addBehavior(gravity)
+            
+                delay(0.3) {
+                    self.refreshView()
+                }
             }
         }
+    }
+    
+    func refreshView() {
+        number++
+        if number > 3 {
+            number = 0
+        }
+        
+        animator.removeAllBehaviors()
+        
+        snapBehavior = UISnapBehavior(item: dialogView, snapToPoint: view.center)
+        attachmentBehavior.anchorPoint = view.center
+        
+        dialogView.center = view.center
+        viewDidAppear(true)
     }
     
 }

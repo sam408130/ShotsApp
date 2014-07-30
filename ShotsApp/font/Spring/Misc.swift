@@ -17,6 +17,18 @@ func delay(delay:Double, closure:()->()) {
         dispatch_get_main_queue(), closure)
 }
 
+func textViewWithFont(textView: UITextView, fontName: String, fontSize: CGFloat, lineSpacing: CGFloat) {
+    var font = UIFont(name: fontName, size: fontSize)
+    var text = textView.text
+    
+    var paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.lineSpacing = lineSpacing
+    
+    var attributesDictionary = [NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraphStyle]
+    
+    textView.attributedText = NSAttributedString(string:text, attributes:attributesDictionary)
+}
+
 /* Snippets
 
 // Light status bar
