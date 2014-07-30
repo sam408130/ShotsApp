@@ -80,6 +80,7 @@ class Home: UIViewController {
             self.shareView.hidden = true
         }
     }
+    
     @IBAction func userButtonDidPress(sender: AnyObject) {
         popoverView.hidden = false
         
@@ -96,7 +97,6 @@ class Home: UIViewController {
             self.popoverView.transform = CGAffineTransformConcat(scale, translate)
             self.popoverView.alpha = 1
         }
-
     }
     func hidePopover() {
         spring(0.5) {
@@ -139,6 +139,48 @@ class Home: UIViewController {
             let translate = CGAffineTransformMakeTranslation(0, 0)
             self.dialogView.transform = CGAffineTransformConcat(scale, translate)
         }
+        
+        animator = UIDynamicAnimator(referenceView: view)
     }
-
+    
+    var animator : UIDynamicAnimator!
+    var attachmentBehavior : UIAttachmentBehavior!
+    var gravityBehaviour : UIGravityBehavior!
+    var snapBehavior : UISnapBehavior!
+    
+    @IBOutlet var panRecognizer: UIPanGestureRecognizer!
+    @IBAction func handleGesture(sender: AnyObject) {
+        let myView = dialogView
+        let location = sender.locationInView(view)
+        let boxLocation = sender.locationInView(dialogView)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            animator.removeBehavior(snapBehavior)
+            
+            let centerOffset = UIOffsetMake(boxLocation.x - CGRectGetMidX(myView.bounds), boxLocation.y - CGRectGetMidY(myView.bounds));
+            attachmentBehavior = UIAttachmentBehavior(item: myView, offsetFromCenter: centerOffset, attachedToAnchor: location)
+            attachmentBehavior.frequency = 0
+            
+            animator.addBehavior(attachmentBehavior)
+        }
+        else if sender.state == UIGestureRecognizerState.Changed {
+            attachmentBehavior.anchorPoint = location
+        }
+        else if sender.state == UIGestureRecognizerState.Ended {
+            animator.removeBehavior(attachmentBehavior)
+            
+            snapBehavior = UISnapBehavior(item: myView, snapToPoint: view.center)
+            animator.addBehavior(snapBehavior)
+            
+            let translation = sender.translationInView(view)
+            if translation.y > 100 {
+                animator.removeAllBehaviors()
+                
+                var gravity = UIGravityBehavior(items: [dialogView])
+                gravity.gravityDirection = CGVectorMake(0, 10)
+                animator.addBehavior(gravity)
+            }
+        }
+    }
+    
 }

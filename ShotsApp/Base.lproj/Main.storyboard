@@ -45,6 +45,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="g6t-KI-W43">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="210"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <gestureRecognizers/>
                                                 <state key="normal" image="image">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -121,11 +122,15 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.94901960780000005" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="NgP-2a-jHf" appends="YES" id="4XQ-Rk-Qjn"/>
+                                        </connections>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8nS-Qg-dEd">
                                         <rect key="frame" x="254" y="25" width="40" height="40"/>
@@ -279,6 +284,7 @@
                         <outlet property="imageButton" destination="g6t-KI-W43" id="R7b-Zl-4nO"/>
                         <outlet property="likeButton" destination="SQh-Tc-ElI" id="a5e-EA-Y3U"/>
                         <outlet property="maskButton" destination="Ywy-VV-ikv" id="CSy-fR-5QD"/>
+                        <outlet property="panRecognizer" destination="NgP-2a-jHf" id="04L-i7-x7m"/>
                         <outlet property="popoverView" destination="8Mq-Cm-UAp" id="4wm-Z6-eGz"/>
                         <outlet property="shareButton" destination="TUh-my-BR5" id="5mV-l5-tgI"/>
                         <outlet property="shareLabelsView" destination="NjB-Mx-qug" id="dB3-QE-Pva"/>
@@ -290,6 +296,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="NgP-2a-jHf">
+                    <connections>
+                        <action selector="handleGesture:" destination="vXZ-lx-hvc" id="otW-1o-hpe"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="168" y="366.36000000000001"/>
         </scene>
