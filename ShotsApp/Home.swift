@@ -179,7 +179,7 @@ class Home: UIViewController {
         let boxLocation = sender.locationInView(dialogView)
         
         if sender.state == UIGestureRecognizerState.Began {
-            animator.removeBehavior(snapBehavior)
+            //animator.removeBehavior(snapBehavior)
             
             let centerOffset = UIOffsetMake(boxLocation.x - CGRectGetMidX(myView.bounds), boxLocation.y - CGRectGetMidY(myView.bounds));
             attachmentBehavior = UIAttachmentBehavior(item: myView, offsetFromCenter: centerOffset, attachedToAnchor: location)
