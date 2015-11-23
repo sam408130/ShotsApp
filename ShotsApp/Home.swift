@@ -60,16 +60,16 @@ class Home: UIViewController {
             self.shareView.transform = CGAffineTransformMakeTranslation(0, 0)
             self.dialogView.transform = CGAffineTransformMakeScale(0.8, 0.8)
         }
-        springWithDelay(0.5, 0.05, {
+        springWithDelay(0.5, delay: 0.05, animations: {
             self.emailButton.transform = CGAffineTransformMakeTranslation(0, 0)
             })
-        springWithDelay(0.5, 0.10, {
+        springWithDelay(0.5, delay: 0.10, animations: {
             self.twitterButton.transform = CGAffineTransformMakeTranslation(0, 0)
             })
-        springWithDelay(0.5, 0.15, {
+        springWithDelay(0.5, delay: 0.15, animations: {
             self.facebookButton.transform = CGAffineTransformMakeTranslation(0, 0)
             })
-        springWithDelay(0.5, 0.2, {
+        springWithDelay(0.5, delay: 0.2, animations: {
             self.shareLabelsView.alpha = 1
             })
     }
@@ -105,7 +105,7 @@ class Home: UIViewController {
     }
     @IBAction func imageButtonDidPress(sender: AnyObject) {
         
-        springWithCompletion(0.7, {
+        springWithCompletion(0.7, animations: {
             
             self.dialogView.frame = CGRectMake(0, 0, 320, 568)
             self.dialogView.layer.cornerRadius = 0
@@ -115,14 +115,14 @@ class Home: UIViewController {
             self.userButton.alpha = 0
             self.headerView.alpha = 0
             
-            }, { finished in
+            }, completion: { finished in
                 self.performSegueWithIdentifier("homeToDetail", sender: self)
             })
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "homeToDetail" {
-            let controller = segue.destinationViewController as Detail
+            let controller = segue.destinationViewController as! Detail
             controller.data = data
             controller.number = number
         }
@@ -137,8 +137,8 @@ class Home: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        insertBlurView(backgroundMaskView, UIBlurEffectStyle.Dark)
-        insertBlurView(headerView, UIBlurEffectStyle.Dark)
+        insertBlurView(backgroundMaskView, style: UIBlurEffectStyle.Dark)
+        insertBlurView(headerView, style: UIBlurEffectStyle.Dark)
         
         animator = UIDynamicAnimator(referenceView: view)
         
@@ -158,9 +158,9 @@ class Home: UIViewController {
             self.dialogView.transform = CGAffineTransformConcat(scale, translate)
         }
         
-        avatarImageView.image = UIImage(named: data[number]["avatar"])
-        imageButton.setImage(UIImage(named: data[number]["image"]), forState: UIControlState.Normal)
-        backgroundImageView.image = UIImage(named: data[number]["image"])
+        avatarImageView.image = UIImage(named: data[number]["avatar"]!)
+        imageButton.setImage(UIImage(named: data[number]["image"]!), forState: UIControlState.Normal)
+        backgroundImageView.image = UIImage(named: data[number]["image"]!)
         authorLabel.text = data[number]["author"]
         titleLabel.text = data[number]["title"]
         
@@ -200,7 +200,7 @@ class Home: UIViewController {
             if translation.y > 100 {
                 animator.removeAllBehaviors()
                 
-                var gravity = UIGravityBehavior(items: [dialogView])
+                let gravity = UIGravityBehavior(items: [dialogView])
                 gravity.gravityDirection = CGVectorMake(0, 10)
                 animator.addBehavior(gravity)
             
